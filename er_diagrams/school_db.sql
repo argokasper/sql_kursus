@@ -216,7 +216,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `school`.`subject` ;
 
 CREATE TABLE IF NOT EXISTS `school`.`subject` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `code` CHAR(10) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `description` TEXT NULL,
@@ -231,7 +231,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `school`.`task` ;
 
 CREATE TABLE IF NOT EXISTS `school`.`task` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `course_subject_id` INT NOT NULL,
   `created_by` INT NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT NOW(),

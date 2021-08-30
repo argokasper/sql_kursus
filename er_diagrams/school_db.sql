@@ -29,6 +29,9 @@ CREATE TABLE IF NOT EXISTS `school`.`course` (
   `name` VARCHAR(45) NOT NULL,
   `start_date` DATE NOT NULL,
   `end_date` DATE NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NOW(),
+  `updated_at` TIMESTAMP NULL DEFAULT NOW(),
+  `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `code_UNIQUE` (`code` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -65,7 +68,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `school`.`homework` ;
 
 CREATE TABLE IF NOT EXISTS `school`.`homework` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` TEXT NULL,
   `mark` TINYINT(1) NULL,
@@ -73,6 +76,9 @@ CREATE TABLE IF NOT EXISTS `school`.`homework` (
   `uploaded_by` INT NOT NULL,
   `uploaded_at` TIMESTAMP NOT NULL DEFAULT NOW(),
   `task_id` INT NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NOW(),
+  `updated_at` TIMESTAMP NULL DEFAULT NOW(),
+  `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_homework_uploaded_by_idx` (`uploaded_by` ASC) VISIBLE,
   INDEX `fk_homework_status_id_idx` (`status_id` ASC) VISIBLE,
@@ -120,6 +126,9 @@ CREATE TABLE IF NOT EXISTS `school`.`material` (
   `subject_id` INT NULL,
   `uploaded_by` INT NOT NULL,
   `uploaded_at` TIMESTAMP NULL DEFAULT NOW(),
+  `created_at` TIMESTAMP NULL DEFAULT NOW(),
+  `updated_at` TIMESTAMP NULL DEFAULT NOW(),
+  `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_material_course1_idx` (`course_id` ASC) VISIBLE,
   INDEX `fk_material_subject1_idx` (`subject_id` ASC) VISIBLE,
@@ -152,6 +161,9 @@ CREATE TABLE IF NOT EXISTS `school`.`student` (
   `number` SMALLINT(4) NOT NULL,
   `user_id` INT NOT NULL,
   `registration_date` DATE NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NOW(),
+  `updated_at` TIMESTAMP NULL DEFAULT NOW(),
+  `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_student_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_student_user`
@@ -220,6 +232,9 @@ CREATE TABLE IF NOT EXISTS `school`.`subject` (
   `code` CHAR(10) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `description` TEXT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NOW(),
+  `updated_at` TIMESTAMP NULL DEFAULT NOW(),
+  `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `code_UNIQUE` (`code` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -234,9 +249,12 @@ CREATE TABLE IF NOT EXISTS `school`.`task` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `course_subject_id` INT NOT NULL,
   `created_by` INT NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT NOW(),
+  `published_at` TIMESTAMP NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `description` TEXT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NOW(),
+  `updated_at` TIMESTAMP NULL DEFAULT NOW(),
+  `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_task_created_by_idx` (`created_by` ASC) VISIBLE,
   INDEX `fk_task_course_subject_id_idx` (`course_subject_id` ASC) VISIBLE,
@@ -259,8 +277,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `school`.`teacher` ;
 
 CREATE TABLE IF NOT EXISTS `school`.`teacher` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NOW(),
+  `updated_at` TIMESTAMP NULL DEFAULT NOW(),
+  `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_teacher_user_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_teacher_user`
@@ -308,6 +329,9 @@ CREATE TABLE IF NOT EXISTS `school`.`user` (
   `date_of_birth` DATE NULL,
   `password` VARCHAR(32) NULL,
   `last_login` TIMESTAMP NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NOW(),
+  `updated_at` TIMESTAMP NULL DEFAULT NOW(),
+  `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB;

@@ -16,6 +16,7 @@ FROM
 GROUP BY orders.customerNumber
 ORDER BY totalPurchased DESC;
 
+-- Siin on viga, JOIN-imisel tekib liiga palju ridu, mis summeerimisel vale summa annavad
 SELECT
     payments.customerNumber,
     SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalPurchased,

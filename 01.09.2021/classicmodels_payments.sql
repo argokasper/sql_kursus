@@ -31,3 +31,21 @@ FROM
     orderdetails ON orderdetails.orderNumber=orders.orderNumber
 GROUP BY payments.customerNumber
 ORDER BY totalPurchased DESC;
+
+-- Parandatud SQL
+SELECT
+    payments.customerNumber,
+    grouped_orders.totalPurchased,
+    SUM(payments.amount) AS totalPaid
+FROM
+    payments
+        JOIN
+    (SELECT
+        orders.customerNumber,
+            SUM(orderdetails.quantityOrdered * orderdetails.priceEach) AS totalPurchased
+    FROM
+        orders
+    JOIN orderdetails ON orderdetails.orderNumber = orders.orderNumber
+    GROUP BY orders.customerNumber) AS grouped_orders ON grouped_orders.customerNumber = payments.customerNumber
+GROUP BY payments.customerNumber
+ORDER BY totalPurchased DESC;
